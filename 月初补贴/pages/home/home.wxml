@@ -1,0 +1,6 @@
+<!--pages/home/home.wxml-->
+<text>pages/home/home.wxml</text>
+<view class='container'>
+  <view></view>
+  <input></input>
+</view>

@@ -19,3 +19,25 @@
 .usermotto {
   margin-top: 200px;
 }
+
+
+
+
+.login {
+  height: auto;
+  color: white;
+  background-color: rgb(84, 218, 22);
+  background-size: cover;
+}
+
+.userinfo-nickname {
+  font-size: 32rpx;
+  color: #007aff;
+  background-color: white;
+  background-size: cover;
+}
+
+.userinfo-nickname::after {
+  border: none;
+}
+

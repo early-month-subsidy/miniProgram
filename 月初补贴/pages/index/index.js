@@ -50,5 +50,10 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+  onGetHome: function() {
+    wx.navigateTo({
+      url: '../home/home'
+    })
   }
 })

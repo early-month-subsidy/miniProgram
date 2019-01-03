@@ -1,6 +1,16 @@
 <!--pages/home/home.wxml-->
-<text>pages/home/home.wxml</text>
 <view class='container'>
-  <view></view>
-  <input></input>
+  <!--定位城市-->
+  <view>{{currentCity}}</view>
+
+  <import src="/wxSearch/wxSearch.wxml"/>
+
+  <view class="wxSearch-section">
+    <view class="wxSearch-pancel">
+      <input bindinput="wxSearchInput" bindfocus="wxSerchFocus" value="{{wxSearchData.value}}" bindblur="wxSearchBlur" class="wxSearch-input" placeholder="搜索" />
+      <button class="wxSearch-button" bindtap="wxSearchFn" size="mini" plain="true">搜索</button>
+      <image></image>
+    </view>
+  </view>
+  <template is="wxSearch" data="{{wxSearchData}}"/> 
 </view>

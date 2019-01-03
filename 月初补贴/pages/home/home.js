@@ -7,8 +7,15 @@ Page({
     currentCity: ''
   },
   onLoad: function (options) {
-    this.getLocation();
+    this.getLocation()
+    console.log('onLoad')
+    var that = this;
+    //初始化的时候渲染wxSearchdata 第二个为你的search高度
+    WxSearch.init(that, 43, ['weappdev', '小程序', 'wxParse', 'wxSearch', 'wxNotification']);
+    WxSearch.initMindKeys(['weappdev.com', '微信小程序开发', '微信开发', '微信小程序']);
   },
+
+  // 定位当前所在城市
   getLocation: function () {
     var page = this
     wx.getLocation({
@@ -50,14 +57,8 @@ Page({
     let searchUrl = "/product/index?keyword=" + inputVaue + "&fromindex=true";
     this.converterUrlAndRedirect(searchUrl);
   },
-  // 搜索框
-  onLoad: function () {
-    console.log('onLoad')
-    var that = this
-    //初始化的时候渲染wxSearchdata
-    WxSearch.init(that, 43, ['weappdev', '小程序', 'wxParse', 'wxSearch', 'wxNotification']);
-    WxSearch.initMindKeys(['weappdev.com', '微信小程序开发', '微信开发', '微信小程序']);
-  },
+
+// 搜索框
   wxSearchFn: function (e) {
     var that = this
     WxSearch.wxSearchAddHisKey(that);
@@ -90,6 +91,6 @@ Page({
   wxSearchTap: function (e) {
     var that = this
     WxSearch.wxSearchHiddenPancel(that);
-  }
+  },
 
 })  

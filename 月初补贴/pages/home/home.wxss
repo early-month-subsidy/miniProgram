@@ -1,2 +1,5 @@
 /* pages/home/home.wxss */
 @import "/wxSearch/wxSearch.wxss";
+.search-input {
+  width: 80%;
+}

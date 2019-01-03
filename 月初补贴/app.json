@@ -5,7 +5,8 @@
     "pages/home/home",
     "pages/order-food/order-food",
     "pages/submit-order/submit-order",
-    "pages/pay/pay"
+    "pages/pay/pay",
+    "pages/personal/order"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -17,5 +18,24 @@
     "scope.userLocation": {
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
+  },
+  "tabBar": {
+    "selectedColor": "#A8EB79",
+    "list": [{
+    "pagePath": "pages/index/index",
+    "text": "主页",
+    "iconPath": "image/home.png",
+    "selectedIconPath": "image/home1.png"
+     },{
+       "pagePath":"pages/submit-order/submit-order",
+       "text": "订单",
+       "iconPath":"image/order.png",
+       "selectedIconPath":"image/order1.png"
+       },{
+      "pagePath": "pages/personal/order",
+      "text": "我的",
+      "iconPath": "image/personal.png",
+      "selectedIconPath": "image/personal1.png"
+    }]
   }
 }

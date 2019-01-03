@@ -1,5 +1,9 @@
 /* pages/home/home.wxss */
 @import "/wxSearch/wxSearch.wxss";
-.search-input {
-  width: 80%;
+.location {
+  float: left;
+  width: 10%;
+  padding-top: 11px;
+  padding-left: 6px;
+  padding-right: 6px;
 }

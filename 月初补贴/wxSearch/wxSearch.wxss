@@ -12,23 +12,19 @@
 }
 .wxSearch-section{
   background-color: #fff;
-  width: 100%;
   padding: 5px 10px;
   border: 1px #eee solid;
 }
-.wxSearch-pancel{
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-}
+
 .wxSearch-input{
-  flex: 8; 
-  width: 90%;
+  width: 60%;
+  float: left;
   background-color: #eee;
   padding: 5px 10px;
 }
 .wxSearch-button{
-  flex: 1;
+
+  float: right;
   border: none !important;
   color: cornflowerblue !important;
 }

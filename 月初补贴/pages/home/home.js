@@ -11,7 +11,7 @@ Page({
     console.log('onLoad')
     var that = this;
     //初始化的时候渲染wxSearchdata 第二个为你的search高度
-    WxSearch.init(that, 43, ['weappdev', '小程序', 'wxParse', 'wxSearch', 'wxNotification']);
+    WxSearch.init(that, 43, ['一点点', '牛大学', '天鹅旺', '麦当劳', '炉火鱼香']);
     WxSearch.initMindKeys(['weappdev.com', '微信小程序开发', '微信开发', '微信小程序']);
   },
 
@@ -47,18 +47,8 @@ Page({
       },
     })
   },
-  inputSearch: function (e) {  //输入框根据查询条件搜索点击事件
-    // 获取用户输入框中的值
-    let inputVaue = e.detail.value['search-input'] ? e.detail.value['search-input'] : e.detail.value;
-    if (!inputVaue) {
-      throw new Error('search input contents con not empty!');
-      return;
-    }
-    let searchUrl = "/product/index?keyword=" + inputVaue + "&fromindex=true";
-    this.converterUrlAndRedirect(searchUrl);
-  },
 
-// 搜索框
+  // 搜索框
   wxSearchFn: function (e) {
     var that = this
     WxSearch.wxSearchAddHisKey(that);

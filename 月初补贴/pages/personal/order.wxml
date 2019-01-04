@@ -4,13 +4,18 @@
   <view class='place-image'>
     <!-- <image src='{{userInfo.avatarUrl}}' mode='cover'></image> -->
     <view class='avatar'>
-      <image src='image/home/home.png' mode='cover' ></image>
+      <!-- <image src='image/home/home.png' mode='cover' ></image> -->
+      <open-data type="userAvatarUrl"></open-data>
+      <open-data type="userNickName"></open-data>
     </view>
     
+    <view class='nickname'>
+      <open-data type="userNickName"></open-data>
+      <!-- <button bindtap='loginandup'>{{login}}</button> > -->
+    </view>
     <view class='login'>
-      <text >{{login}}</text>
+      <button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" class='login-button'>{{login}}</button>
     </view>
-    
   </view>
   <view class='content'>
     <view class='history-order'>

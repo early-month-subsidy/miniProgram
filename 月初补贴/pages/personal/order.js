@@ -5,7 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    userInfo: {},
+    history_order:"历史订单",
+    login:"登录/注册",
   },
 
   /**

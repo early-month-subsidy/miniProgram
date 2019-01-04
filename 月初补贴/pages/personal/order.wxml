@@ -6,7 +6,6 @@
     <view class='avatar'>
       <!-- <image src='image/home/home.png' mode='cover' ></image> -->
       <open-data type="userAvatarUrl"></open-data>
-      <open-data type="userNickName"></open-data>
     </view>
     
     <view class='nickname'>
@@ -14,13 +13,21 @@
       <!-- <button bindtap='loginandup'>{{login}}</button> > -->
     </view>
     <view class='login'>
-      <button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" class='login-button'>{{login}}</button>
+      <button wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" class='login-button' bindtap='loginandup'>{{login}}</button>
     </view>
   </view>
   <view class='content'>
     <view class='history-order'>
       <button class='history-order-button'>{{history_order}}</button>
     </view>
+
+    <scroll-view class='scroll-view' scroll-y="true" enable-back-to-top="true">
+      <view class='orderlist' wx:for="{{orderlist}}" wx:key='{{index}}' wx:for-item='order'>
+        <view class='oneorder'>
+        
+        </view>
+      </view>
+    </scroll-view>
   </view>
 
 </view>

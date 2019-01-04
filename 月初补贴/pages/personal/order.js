@@ -11,7 +11,22 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
   },
   loginandup:function(e) {
-
+    console.log('aaaaaaaaa');
+    wx.login({
+      success:function(res) {
+        console.log(res.code)
+        // wx.request({
+        //   url: '',
+        //   data:{code:res.code},
+        //   header:{
+        //     'content-type':'application/json'
+        //   },
+        //   success:function(res) {
+        //     console.log(res.data)
+        //   }
+        // })
+      }
+    })
   },
 
   /**

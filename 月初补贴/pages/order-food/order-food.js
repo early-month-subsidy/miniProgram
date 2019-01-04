@@ -130,9 +130,11 @@ Page({
     // 判断是否有选中商品
     if (that.data.orderCount.num !== 0) {
       // 跳转到购物车订单也
-      wx.redirectTo({
-        url: '../order/order'
-      });
+      console.log("begin")
+      wx.switchTab({
+        url: '../submit-order/submit-order',
+      })
+      console.log("end")
     } else {
       wx.showToast({
         title: '您未选中任何商品',

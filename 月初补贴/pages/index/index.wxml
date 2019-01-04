@@ -16,7 +16,7 @@
 
 <view class="item-content">
     <view class="{{orderCount.num === 0 ? 'box' : 'box active'}}">
-      <view class="item" wx:for="{{restaurants}}" wx:key="{{restaurant.id}}">
+      <view class="item" wx:for="{{restaurants}}" wx:key="{{restaurant.id}}" bindtap='selectRestaurant'>
         <image src='{{item.url}}'></image>
         <text class="name">{{item.restaurant}}</text>
         <text class="introduce">{{item.introduce}}</text>

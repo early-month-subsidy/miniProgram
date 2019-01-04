@@ -28,14 +28,14 @@ Page({
 
   // 扫码点餐
   scan2restaurant: function(){
-    //wx.navigateTo({
-      //url: '../scan/scan',
-    //})
     wx.scanCode({
       onlyFromCamera: false,
       scanType: ['qrCode', 'barCode'],
       success: function (suc) {
-        wx.navigateTo({
+        //
+        // 添加扫码获取链接地址
+        //
+        wx.redirectTo({
           url: '../order-food/order-food',
           success: function (res) { },
           fail: function (res) { },
@@ -82,5 +82,10 @@ Page({
   wxSearchTap: function(e){
     var that = this
     WxSearch.wxSearchHiddenPancel(that);
+  },
+  selectRestaurant: function(e) {
+    wx.navigateTo ({
+      url: '../order-food/order-food',
+    })
   }
 })

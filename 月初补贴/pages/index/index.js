@@ -4,18 +4,26 @@ var WxSearch = require('../../wxSearch/wxSearch.js')
 var app = getApp()
 Page({
   data: {
-    // wxSearchData:{
-    //   view:{
-    //     isShow: true
-    //   }
-    // }
+    restaurants: [{
+      id: 1, restaurant: '一点点', active: false, url: '/image/restaurants/yidiandian.jpg', introduce:'年轻人逛街喜欢喝奶茶放松心情，他们在奶茶饮品消费上更愿意选择环境优雅、饮品清新的奶茶店铺落座消费。而一点点奶茶加盟品牌，采用台湾奶茶饮品的制作服务理'
+    }, {
+        id: 2, restaurant: '杨国福', active: false, url: '/image/restaurants/yangguofu.jpg', introduce:'杨国福麻辣烫风味独特富含多种健康的绿色蔬菜、藻类、菌类、豆制品。麻、辣、鲜、香。让您回味无穷，流连忘返。'
+    }, {
+        id: 3, restaurant: '江湖火锅', active: false, url: '/image/restaurants/jianghuhuoguo.jpg', introduce: '火锅'
+    }, {
+        id: 4, restaurant: '牛大学', active: false, url: '/image/restaurants/niudaxue.jpg', introduce: '牛肉火锅'
+    }, {
+        id: 5, restaurant: '益禾堂', active: false, url: '/image/restaurants/yihetang.jpg', introduce: '益禾堂, 原叶手作茶专门店!打造高校全饮品人气品牌'
+    }, {
+        id: 6, restaurant: '那碗粉', active: false, url: '/image/restaurants/nawanfen.jpg', introduce: '各种特色米粉'
+    }],
   },
   onLoad: function () {
     console.log('onLoad')
     var that = this
     //初始化的时候渲染wxSearchdata
     WxSearch.init(that,43,['一点点','杨国福','牛大学','炉火鱼香','泰莱']);
-    WxSearch.initMindKeys(['weappdev.com','微信小程序开发','微信开发','微信小程序']);
+    //WxSearch.initMindKeys(['weappdev.com','微信小程序开发','微信开发','微信小程序']);
   },
 
   // 扫码点餐

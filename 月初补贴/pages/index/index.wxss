@@ -5,3 +5,48 @@
   max-height: 50%;
   padding-right: 8px;
 }
+
+/*整个饭店列表*/
+.item-content{
+  float:left;
+  width:calc(100% - 18px);
+  height:100%;
+}
+/*列表中的每一行饭店*/
+.item-content .box{
+  height:calc(100% - 10px);
+  padding:0 0 0 18px; /*上右下左*/
+  overflow: scroll;
+}
+.item-content .box.active{
+  padding-bottom:10px;
+}
+.item-content .box::-webkit-scrollbar{
+  width:0;
+}
+.item-content .box .item{
+  height:70px;
+  padding:0 0 0 10px;
+  background:rgb(255, 255, 255);
+}
+.item-content .box .item image{
+  display:block;
+  float:left;
+  height:60px;
+  width:60px;
+  margin-right:18px;
+}
+.item-content .box .item text{
+  display:block;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; 
+}
+.item-content .box .restaurant-list .name{
+  margin-bottom:5px;
+  font-weight:bolder;
+  font-size:16px;
+}
+.introduce{
+  margin-bottom:5px;
+  font-weight:lighter;
+  font-size:8px;
+}

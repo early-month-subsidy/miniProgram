@@ -14,6 +14,7 @@
       </view>
     </view>
   </view>
+  
   <view class="{{bottomFlag ? 'bottom-bar' : 'bottom-bar hidden'}}">
     <view class="count">
         共 <text class="num">{{orderCount.num}} 件</text>     

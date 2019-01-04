@@ -20,7 +20,7 @@
   flex-direction: row;
 }
 .wxSearch-input{
-  flex: 8; 
+  flex: 7; 
   background-color: #eee;
   padding: 5px 10px;
 }

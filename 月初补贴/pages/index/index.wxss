@@ -1,1 +1,7 @@
 @import "/wxSearch/wxSearch.wxss";
+.scanstyle {
+  flex: 1;
+  height: auto;
+  max-height: 50%;
+  padding-right: 8px;
+}

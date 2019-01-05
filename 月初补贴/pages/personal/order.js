@@ -5,49 +5,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo: {},
-    history_order:"历史订单",
-    login:"登录",
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-  },
-  loginandup:function(e) {
-    console.log('aaaaaaaaa');
-    wx.login({
-      success:function(res) {
-        console.log(res.code)
-        // wx.request({
-        //   url: '',
-        //   data:{code:res.code},
-        //   header:{
-        //     'content-type':'application/json'
-        //   },
-        //   success:function(res) {
-        //     console.log(res.data)
-        //   }
-        // })
-      }
-    })
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.getSetting({
-      success(res) {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-          wx.getUserInfo({
-            success(res) {
-              console.log(res.userInfo)
-            }
-          })
-        }
-      }
-    })
-  },
-  bindGetUserInfo(e) {
-    console.log(e.detail.userInfo)
+
   },
 
   /**

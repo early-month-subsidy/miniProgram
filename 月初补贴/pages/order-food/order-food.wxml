@@ -1,5 +1,6 @@
 <!--home.wxml-->
 <!--<text>{{restaurant-name}}</text>-->
+<!--
 <import src="/wxSearch/wxSearch.wxml"/>
 <template is="wxSearch" data="{{wxSearchData}}"/>
 <view class="wxSearch-section">
@@ -8,26 +9,11 @@
   </view>
 </view>
 
+
 <view class="container">
   <image class='img-res' src='/image/restaurants/yidiandian.jpg' ></image>'
 </view>
-
-<view class="aside">
-    <view class="menu" wx:for="{{menus}}" wx:key="{{item.id}}" data-index="{{index}}" bindtap='tabMenu'>{{item.menu}}
-    </view>
-    
-  </view>
-  <view class="item-content">
-    <view class="{{orderCount.num === 0 ? 'box' : 'box active'}}">
-      <view class="item" wx:for="{{items}}" wx:key="{{item.id}}">
-        <image src="image/item-m.jpg"></image>
-        <text class="title">{{item.title}}</text>
-        <text class="price">￥ {{item.price}} 元</text>
-        <text class="{{item.active ? 'btn active' : 'btn'}}" bindtap='addOrder' data-id="{{item.id}}" data-index="{{index}}">添加</text>
-      </view>
-    </view>
-  </view>
-
+-->
 <!--
 <view class="container">
   <view class="aside">
@@ -57,3 +43,125 @@
   </view>
 </view>
 -->
+
+<!--图片-->
+<view class="container">
+  <image class='img-res' src='/image/restaurants/yidiandian.jpg' ></image>'
+</view>
+
+<!--菜单-->
+<view class="goods" wx:if="{{status==0||item.status==status}}">
+  <view class="menu-wrapper">
+    <scroll-view scroll-y="true" style="height: 450px;">
+      <view wx:for="{{goods}}" class="menu-item border-1px" bindtap="selectMenu" data-item-index="{{index}}" wx:key="key">
+        <view class="text">{{item.name}}</view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <scroll-view scroll-y="true"  scroll-into-view="{{toView}}" class="foods-wrapper">
+    <view wx:for="{{goods}}" class="food-list food-list-hook" wx:for-index="parentIndex" wx:key="key">
+      <view id="order{{parentIndex}}" class="title">{{item.name}}</view>
+      <view wx:for="{{item.foods}}" class="food-item" wx:for-item="food" data-food="{{food}}" wx:key="key">
+        <view class="icon">
+          <image src="{{food.icon}}"  style="width: 57px;height: 57px" data-id="{{food.icon}}" bindtap="togglePopup"></image>
+        </view>
+        <view class="content">
+          <view class="name">{{food.name}}</view>
+          <view class="extra">
+            <text class="count">品牌:{{food.brand}}</text>
+            <text class="count">型号:{{food.type}}</text>
+          </view>
+          <view class="price">
+            <view class="now">￥{{food.price}}</view>
+          </view>
+          <!--cartControl-->
+          <view class="cartControl-wrapper">
+            <view class="cartControl">
+              <view name="fade">
+                <view class="cart-decrease" wx:if="{{food.Count > 0}}" data-item-index="{{index}}" data-parentIndex="{{parentIndex}}" catchtap="decreaseCart">
+                  <view class="inner iconfont icon-jian" style="font-size:24px;color:#00A0DC;"></view>
+                </view>
+                <view class="cart-count" wx:if="{{food.Count > 0 }}">{{food.Count}}</view>
+                <view class=" iconfont icon-jia cart-add " style="color:#00A0DC; " data-item-index="{{index}}" data-parentIndex="{{parentIndex}}" catchtap="addCart"></view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+
+  <!--shopCart-->
+  <view>
+    <view>
+      <view class="shopCart">
+        <view class="content" bindtap="toggleList">
+          <view class="content-left">
+            <view class="logo-wrapper">
+              <view class="logo highlight">
+                <view class="iconfont icon-gouwuche highlight"></view>
+              </view>
+              <view class="num" wx:if="{{totalCount> 0}}">{{totalCount}}</view>
+            </view>
+            
+            <view class="price highlight">￥{{totalPrice}}</view>
+          </view>
+          <!--提交订单上菜-->
+          <view class="content-right" catchtap="pay">
+            <button>提交订单</button>
+          </view>
+          <!--结账-->
+          <view class="content-right" catchtap="pay">
+            <view class="pay enough" :class="payClass">
+              {{payDesc}}
+            </view>
+          </view>
+        </view>
+        <view class="shopcart-list" style="display:{{cartShow}}">
+          <view class="list-header">
+            <view class="title">购物车</view>
+            <text class="empty" bindtap="empty">清空</text>
+          </view>
+          <view class="list-content">
+          <scroll-view scroll-y style="height: 200px;">
+            <view class="shopcart-food" wx:for="{{carArray}}" wx:key="key">
+              <text class="name">{{item.name}}</text>
+              <view class="price" wx:if="{{item.num > 0}}">
+                <span>￥{{item.price*item.num}}</span> 
+              </view>
+
+              <!--cartControl-->
+              <view class="cartControl-wrapper" style="bottom:10px;" wx:if="{{item.num > 0}}">
+                <view class="cartControl" style="width:80px;">
+                  <view name="fade">
+                    <view class="cart-decrease" style="display:inline-block;" data-item-index="{{item.index}}" data-parentIndex="{{item.parentIndex}}" catchtap="decreaseShopCart">
+                      <view class="inner iconfont icon-jian" style="font-size:24px;color:#00A0DC;"></view>
+                    </view>
+                    <view class="cart-count" style="display:inline-block;width:32px;text-align:center;font-size:14px;">{{item.num}}</view>
+                    <view class=" iconfont icon-jia cart-add " style="font-size:24px;color:#00A0DC; padding:0;" data-item-index="{{item.index}}" data-parentIndex="{{item.parentIndex}}" catchtap="addShopCart"></view>
+                  </view>
+                </view>
+              </view>
+              <!--cartControl-->
+            </view>
+            </scroll-view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view name="fade">
+    <view class="list-mask" wx:if="{{listShow}}" bindtap="hideList"></view>
+  </view>
+</view>
+
+<view class="zan-popup {{ showPopup ? 'zan-popup--show' : ''}}">
+  <view class="zan-popup__mask" bindtap="togglePopup"></view>
+  <view class="zan-popup__container popup-example--center">
+    <view class="zan-btns">
+      <image src='{{url}}'></image>
+    </view>
+  </view>
+</view>

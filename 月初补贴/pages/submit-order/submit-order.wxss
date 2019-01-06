@@ -40,8 +40,8 @@
   font-weight:bolder;
 }
 .item-content .box .item .price{
-  color:red;
-  font-size:18px;
+  color: rgb(240, 20, 20);
+  font-size:14px;
   margin-bottom:5px;
 }
 .item-content .box .item .opera{
@@ -61,13 +61,13 @@
   text-align:center;
   color:#fff;
   font-weight:bolder;
-  background:orange;
+  background:rgb(243, 177, 53);
   border-radius:5px;
 }
 .item-content .box .opera .num{
   padding:2px 15px;
   margin:0 10px;
-  border:1px solid #ccc;
+  /*border:1px solid #ccc;*/
 }
 .bottom-bar{
     display:flex;
@@ -87,12 +87,13 @@
 }
 .bottom-bar .count{
     padding-left:10px;
+    font-size: 14px;
 }
 .bottom-bar .num{
     margin-right:10px;
-    font-size:18px;
     font-weight:bolder;
-    color:red;
+    font-size: 14px;
+    color: rgb(240, 20, 20);
 }
 .bottom-bar .btn{
     height:40px;

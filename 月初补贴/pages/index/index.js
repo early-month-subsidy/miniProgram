@@ -41,6 +41,13 @@ Page({
           fail: function (res) { },
           complete: function (res) { },
         })
+        /*
+        //api.leo - lee.cn/api/restaurants / <int: restaurant_id>/boards/<int: board_id>
+        var that = this
+        wx.request({
+          url: 'https://api.leo-lee.cn/api/restaurants/1/boards/1',
+        })
+        */
       },
       fail: function (err) {
       },
@@ -53,7 +60,6 @@ Page({
   wxSearchFn: function(e){
     var that = this
     WxSearch.wxSearchAddHisKey(that);
-    
   },
   wxSearchInput: function(e){
     var that = this

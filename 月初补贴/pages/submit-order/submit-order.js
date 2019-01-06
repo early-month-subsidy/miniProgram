@@ -6,7 +6,7 @@ Page({
   data: {
     // 统计商品数量和价格
     orderCount: {
-      num: 0,
+      count: 0,
       money: 0
     },
     bottomFlag: false,
@@ -14,6 +14,7 @@ Page({
     orders: true,
     items: []
   },
+  /*
   // 点击对应菜单添加按钮
   del: function (event) {
     let that = this;
@@ -76,16 +77,17 @@ Page({
       orderCount
     });
   },
+  */
   // 点击结账按钮
   pay: function() {
     let that = this;
-    let str = '选中' + that.data.orderCount.num + '件商品，共' + that.data.orderCount.money + '元，是否要支付？'
+    let str = '选中' + that.data.orderCount.count + '件商品，共' + that.data.orderCount.money + '元，是否要支付？'
     wx.showModal({
       title: '提示',
       content: str,
       success: function (res) {
         // 至少选中一个商品才能支付
-        if (that.data.orderCount.num !== 0){
+        if (that.data.orderCount.count !== 0){
           if (res.confirm) {
             // 打开扫码功能
             wx.scanCode({
@@ -112,6 +114,30 @@ Page({
   onLoad: function() {
     let that = this;
     // 取出订单传过来的数据
+    var order_temp = (wx.getStorageSync('order_temp') || [])
+    console.log(order_temp.length)
+    let items = order_temp
+    let money = 0;
+    let count = order_temp.length;
+    // 价格统计汇总
+    order_temp.forEach(item => {
+      money += (item.price * item.num);// 总价格求和
+    })
+    let orderCount = {
+      count,
+      money
+    }
+    that.setData({
+      orderCount: orderCount
+    })
+    that.setData({
+      items: order_temp,
+    })
+    console.log(items)
+
+
+
+/*
     wx.getStorage({
       key: 'orders',
       success: function (res) {
@@ -134,5 +160,6 @@ Page({
         });
       }
     })
+*/
   }
 })

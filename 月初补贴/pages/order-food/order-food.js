@@ -200,31 +200,92 @@ Page({
   data: {
     goods: [
       {
-        "name": "马达",
-        "type": -1,
+        "name": "找口感",
+        "type": 1,
         "foods": [
           {
-            "name": "马达起动机",
+            "name": "波霸绿",
             "price": 10,
-            "brand": "亿资",
+            "brand": "找口感",
             "Count": 0,
-            "type": "1315C",
-            "icon": "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1495904945,1470333066&fm=27&gp=0.jpg",
+            "type": "热饮/冷饮",
+            "icon": "http://www.yidiandiantea.com/uploads/allimg/180228/1-1P22Q3412M41.jpg",
+          },
+          {
+            "name": "珍珠奶茶",
+            "price": 10,
+            "brand": "找口感",
+            "Count": 0,
+            "type": "热饮/冷饮",
+            "icon": "http://www.yidiandiantea.com/uploads/150724/1-150H41I22RO-lp.jpg",
+          },
+          {
+            "name": "燕麦奶茶",
+            "price": 10,
+            "brand": "找口感",
+            "Count": 0,
+            "type": "热饮",
+            "icon": "http://www.yidiandiantea.com/uploads/allimg/180228/1-1P22Q3401O19.jpg",
           },
         ]
       },
       {
-        "name": "充电机",
+        "name": "找好茶",
         "type": 2,
         "foods": [
           {
-            "name": "电子充电机",
-            "price": 60.5,
-            "brand": "台电",
+            "name": "四季春茶",
+            "price": 12,
+            "brand": "找好茶",
             "Count": 0,
-            "type": "60A",
-            "icon": "http://img3.imgtn.bdimg.com/it/u=527088292,3980765409&fm=27&gp=0.jpg",
+            "type": "热饮",
+            "icon": "http://www.yidiandiantea.com/uploads/allimg/170401/2-1F4011HQ0936-lp.jpg",
           }
+        ]
+      },
+      {
+        "name": "找奶茶",
+        "type": 3,
+        "foods": [
+          {
+            "name": "乌龙奶茶",
+            "price": 10,
+            "brand": "找奶茶",
+            "Count": 0,
+            "type": "热饮/冷饮",
+            "icon": "http://www.yidiandiantea.com/uploads/allimg/180228/1-1P22Q34350Z6.jpg",
+          },
+          {
+            "name": "红茶玛奇朵",
+            "price": 12,
+            "brand": "找奶茶",
+            "Count": 0,
+            "type": "热饮",
+            "icon": "http://www.yidiandiantea.com/uploads/allimg/170401/2-1F4011HQ0936-lp.jpg",
+          },
+          {
+            "name": "古早味奶茶",
+            "price": 12,
+            "brand": "找奶茶",
+            "Count": 0,
+            "type": "冷饮/热饮",
+            "icon": "http://www.yidiandiantea.com/uploads/allimg/160616/1-160616142121U4-lp.jpg",
+          }
+        ]
+      },
+      {
+        "name": "找新鲜",
+        "type": 4,
+        "foods": [
+          {
+            "name": "葡萄柚绿茶",
+            "price": 12,
+            "brand": "找新鲜",
+            "Count": 0,
+            "type": "冷饮",
+            "icon": "http://www.yidiandiantea.com/uploads/allimg/160616/1-160616142121U4-lp.jpg",
+          },
+          
         ]
       },
     ],
@@ -259,10 +320,12 @@ Page({
     var num = this.data.goods[parentIndex].foods[index].Count;
     var mark = 'a' + index + 'b' + parentIndex
     var price = this.data.goods[parentIndex].foods[index].price;
-    var obj = { price: price, num: num, mark: mark, name: name, index: index, parentIndex: parentIndex };
+    //var obj = { price: price, num: num, mark: mark, name: name, index: index, parentIndex: parentIndex };
+    var img = this.data.goods[parentIndex].foods[index].icon;
+    var obj = { price: price, num: num, name: name, img: img};
     var carArray1 = this.data.carArray.filter(item => item.mark != mark);
     carArray1.push(obj);
-    console.log(carArray1);
+    // console.log(carArray1);
     for (var m = 0; m < carArray1.length; m++) {
       if (carArray1[m].num == 0) {
         carArray1.splice(m, 1);  // splice(a,b); a需要删除的位置,b删除几个
@@ -305,7 +368,9 @@ Page({
     var price = this.data.goods[parentIndex].foods[index].price;
     var num = this.data.goods[parentIndex].foods[index].Count;
     var name = this.data.goods[parentIndex].foods[index].name;
-    var obj = { price: price, num: num, mark: mark, name: name, index: index, parentIndex: parentIndex };
+    //var obj = { price: price, num: num, mark: mark, name: name, index: index, parentIndex: parentIndex };
+    var img = this.data.goods[parentIndex].foods[index].icon;
+    var obj = { price: price, num: num,name: name,img: img};
     var carArray1 = this.data.carArray.filter(item => item.mark != mark)
     carArray1.push(obj)
     console.log(carArray1);
@@ -336,8 +401,9 @@ Page({
       //payDesc: this.payDesc()
     });
   },
-  //差几元起送
+  //提交订单按钮更新
   payDesc() {
+    /*
     if (this.data.totalPrice === 0) {
       return `￥${this.data.minPrice}元起送`;
     } else if (this.data.totalPrice < this.data.minPrice) {
@@ -346,7 +412,84 @@ Page({
     } else {
       return '去结算';
     }
+    */
+    //return `共￥${this.data.totalPrice}元`;
+    return `提交订单`;
   },
+  // pay, 提交订单
+  pay: function() {
+  },
+
+
+  ////////////下面时提交订单信息部分
+  // 点击去购物车结账
+  card: function () {
+    let that = this;
+    // 判断是否有选中商品
+    if (that.data.orderCount.num !== 0) {
+      // 跳转到购物车订单也
+      wx.switchTab({
+        url: '../submit-order/submit-order',
+      })
+    } else {
+      wx.showToast({
+        title: '您未选中任何商品',
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  },
+  addOrder: function (event) {
+    let that = this;
+    let id = event.target.dataset.id;
+    let index = event.target.dataset.index;
+    let param = this.data.items[index];
+    let subOrders = []; // 购物单列表存储数据
+    param.active ? param.active = false : param.active = true;
+    // 改变添加按钮的状态
+    this.data.items.splice(index, 1, param);
+    that.setData({
+      items: this.data.items
+    });
+    // 将已经确定的菜单添加到购物单列表
+    this.data.items.forEach(item => {
+      if (item.active) {
+        subOrders.push(item);
+      }
+    });
+    // 判断底部提交菜单显示隐藏
+    if (subOrders.length == 0) {
+      that.setData({
+        bottomFlag: false
+      });
+    } else {
+      that.setData({
+        bottomFlag: true
+      });
+    }
+    let money = 0;
+    let num = subOrders.length;
+    subOrders.forEach(item => {
+      money += item.price; // 总价格求和
+    });
+    let orderCount = {
+      num,
+      money
+    }
+    // 设置显示对应的总数和全部价钱
+    this.setData({
+      orderCount
+    });
+    // 将选中的商品存储在本地
+    wx.setStorage({
+      key: "orders",
+      data: subOrders
+    });
+  },
+  ////////////end////////////////
+
+
+
   //购物车
   toggleList: function () {
     if (!this.data.totalCount) {
@@ -358,6 +501,12 @@ Page({
     var fold = this.data.fold
     //console.log(this.data.fold);
     this.cartShow(fold)
+    // 提交订单数据
+    console.log(this.data.carArray);
+    wx.setStorageSync("order_temp", this.data.carArray)
+    wx.switchTab({
+      url: '../submit-order/submit-order',
+    })
   },
   cartShow: function (fold) {
     console.log(fold);
@@ -396,6 +545,15 @@ Page({
     this.setData({
       payDesc: this.payDesc()
     });
+  },
+  pay: function(msg) {
+    msg = this.payDesc()
+    wx.switchTab({
+      url: '/pages/submit-order/submit-order',
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
   },
   onReady: function () {
     // 页面渲染完成

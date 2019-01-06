@@ -69,8 +69,8 @@
         <view class="content">
           <view class="name">{{food.name}}</view>
           <view class="extra">
-            <text class="count">品牌:{{food.brand}}</text>
-            <text class="count">型号:{{food.type}}</text>
+            <text class="count">系列:{{food.brand}}</text>
+            <text class="count">饮品:{{food.type}}</text>
           </view>
           <view class="price">
             <view class="now">￥{{food.price}}</view>
@@ -109,12 +109,12 @@
             <view class="price highlight">￥{{totalPrice}}</view>
           </view>
           <!--提交订单上菜-->
-          <view class="content-right" catchtap="pay">
+          <!--<view class="content-right" catchtap="pay">
             <button>提交订单</button>
-          </view>
+          </view>-->
           <!--结账-->
-          <view class="content-right" catchtap="pay">
-            <view class="pay enough" :class="payClass">
+          <view class="content-right">
+            <view class="pay enough" :class="payClass" bindtap='pay'>
               {{payDesc}}
             </view>
           </view>

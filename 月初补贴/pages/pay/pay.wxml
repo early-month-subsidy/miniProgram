@@ -6,5 +6,5 @@
   <view class="info img">
     <image src="image/code.png" />
   </view>
-  <button>返回首页</button>
+  <button bindtap='return2index'>返回首页</button>
 </view>

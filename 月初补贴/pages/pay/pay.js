@@ -16,6 +16,14 @@ Page({
       console.log('zhendong');
     }});
   },
+  return2index: function() {
+    wx.switchTab({
+      url: '/pages/index/index',
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

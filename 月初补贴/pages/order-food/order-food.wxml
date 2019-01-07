@@ -97,8 +97,8 @@
   <view>
     <view>
       <view class="shopCart">
-        <view class="content" bindtap="toggleList">
-          <view class="content-left">
+        <view class="content">
+          <view class="content-left" bindtap="toggleList">
             <view class="logo-wrapper">
               <view class="logo highlight">
                 <view class="iconfont icon-gouwuche highlight"></view>

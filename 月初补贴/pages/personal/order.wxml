@@ -18,7 +18,7 @@
   </view>
   <view class='content'>
     <view class='history-order'>
-      <button class='history-order-button'>{{history_order}}</button>
+      <button class='history-order-button' bindtap='getHistoryOrder'>{{history_order}}</button>
     </view>
 
     <scroll-view class='scroll-view' scroll-y="true" enable-back-to-top="true">

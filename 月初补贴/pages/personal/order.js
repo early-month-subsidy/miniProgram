@@ -9,20 +9,48 @@ Page({
     history_order:"历史订单",
     login:"登录",
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    // user_info:{message:"", access_token:"", refresh_token:""},
+    user_info:{},
+    userNickName:''
   },
   loginandup:function(e) {
-    console.log('aaaaaaaaa');
+    console.log('userInfo is', this.data.userInfo);
+    var that = this;
     wx.login({
       success:function(res) {
-        console.log(res.code)
+        console.log(res.code);
+        console.log('userNickName is', that.data.userNickName);
+        if (typeof that.data.userNickName == 'string') {
+          console.log('nick name is string')
+        } else {
+          console.log('nick name is not string')
+        }
+        
         wx.request({
           url: 'https://api.leo-lee.cn/wxlogin',
-          data:{code:res.code},
+          data:{code:res.code,
+                nickname:that.data.userNickName},
           method:"POST",
           success:function(res) {
-            console.log(res.data)
+            console.log(res.data);
+            that.setData({
+              user_info:res.data
+            })
           }
         })
+      }
+    })
+  },
+  getHistoryOrder:function(e) {
+    console.log("user_info is ", this.data.user_info)
+    wx.request({
+      url: 'https://api.leo-lee.cn/api/orders',
+      method:'GET',
+      header: {
+        'Authorization':'Bearer' + ' '+this.data.user_info.access_token
+      },
+      success:function(res) {
+        console.log(res.data);
       }
     })
   },
@@ -31,6 +59,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this;
     wx.getSetting({
       success(res) {
         if (res.authSetting['scope.userInfo']) {
@@ -38,6 +67,9 @@ Page({
           wx.getUserInfo({
             success(res) {
               console.log(res.userInfo)
+              that.setData({
+                userNickName:res.userInfo.nickName,
+              });
             }
           })
         }

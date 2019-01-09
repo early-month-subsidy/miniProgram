@@ -11,7 +11,13 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     // user_info:{message:"", access_token:"", refresh_token:""},
     user_info:{},
-    userNickName:''
+    userNickName:'',
+    historyOrder: [{created_time: '2000-2-3 349' }, {created_time: '2099sdgsrts-2-3 349' }],
+    order_created_time:'',
+    restaurant_name:'',
+    total_cost:"",
+    items_details:"",
+    dot:''
   },
   loginandup:function(e) {
     console.log('userInfo is', this.data.userInfo);
@@ -43,6 +49,7 @@ Page({
   },
   getHistoryOrder:function(e) {
     console.log("user_info is ", this.data.user_info)
+    var that = this;
     wx.request({
       url: 'https://api.leo-lee.cn/api/orders',
       method:'GET',
@@ -51,6 +58,22 @@ Page({
       },
       success:function(res) {
         console.log(res.data);
+        var temp = res.data.orders;
+        console.log("temp is", temp);
+        temp.push(temp[0]);
+        console.log("tempp is", temp);
+        temp.push(temp[0]);
+        console.log("temppp is", temp);
+        that.setData({
+          // historyOrder:res.data.orders,
+          historyOrder:temp,
+          order_created_time:"订单创建时间：",
+          restaurant_name:"店铺名称: ",
+          total_cost:"花费总计：",
+          items_details:"订单详情：",
+          dot:'-'
+        });
+        console.log(that.data.historyOrder)
       }
     })
   },

@@ -22,9 +22,15 @@
     </view>
 
     <scroll-view class='scroll-view' scroll-y="true" enable-back-to-top="true">
-      <view class='orderlist' wx:for="{{orderlist}}" wx:key='{{index}}' wx:for-item='order'>
+      <view class='orderlist' wx:for="{{historyOrder}}" wx:key='{{index}}' wx:for-item='order'>
         <view class='oneorder'>
-        
+          <view class='created_time'>{{order_created_time}}{{order.created_time}}</view>
+          <view class='restaurant'>{{restaurant_name}}{{order.restaurant.name}}</view>
+          {{items_details}}
+          <view class='items' wx:for="{{order.items}}" wx:for-item='item'>
+            {{item.food.name}}{{dot}}{{item.owner.nickname}}
+          </view>
+          <view class='total_cost'>{{total_cost}}{{order.total_cost}}</view>
         </view>
       </view>
     </scroll-view>

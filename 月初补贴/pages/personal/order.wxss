@@ -68,3 +68,13 @@ page {
   flex-direction: column;
   border: 1px solid orange;
 }
+.orderlist{
+  width: 100%;
+}
+.oneorder {
+  margin-bottom: 10px;
+  border: 1px solid gray;
+  width: 100%;
+  display: flex;
+  flex-direction: column;                                              
+}

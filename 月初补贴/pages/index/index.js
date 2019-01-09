@@ -60,6 +60,9 @@ Page({
   wxSearchFn: function(e){
     var that = this
     WxSearch.wxSearchAddHisKey(that);
+    // 服务器Search
+    var text = that.data.wxSearchData.value;
+    
   },
   wxSearchInput: function(e){
     var that = this

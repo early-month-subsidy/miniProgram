@@ -20,7 +20,7 @@ Page({
     }]
     */
     restaurants:[]
-    /*
+/*
     restaurants: [{
       "id": 1,
       "name": "Happy Day",
@@ -65,8 +65,53 @@ Page({
           ]
         }
       ],
-    }]
-    */
+    },
+      {
+        "id": 1,
+        "name": "Happy Day",
+        "introduction": "A restaurant in china.",
+        "opening_time": "周一至周五，11：00am-10:00pm",
+        "address": "大学城北xxx路",
+        "images": [
+          {
+            "id": 1,
+            "order_id": 1,
+            "image_url": "/image/restaurants/yidiandian.jpg",
+            "restaurant_id": 1
+          }
+        ],
+        "boards": [
+          {
+            "id": 1,
+            "occupation": false,
+            "name": "A1",
+            "seat_num": 2,
+            "qr_code": "https://example.com/static/images/DNIDJDIFXC1454DF892DF.jpg",
+            "restaurant_id": 1
+          }
+        ],
+        "categories": [
+          {
+            "id": 1,
+            "name": "主食",
+            "priority": 1,
+            "restaurant_id": 1,
+            "food": [
+              {
+                "id": 1,
+                "name": "米饭",
+                "description": "中国人最爱",
+                "price": 1.00,
+                "image": "https://example.com/static/images/DNIDJDIFXC1454DF892DF.jpg",
+                "likes": 1,
+                "sales": 1,
+                "category_id": 1
+              }
+            ]
+          }
+        ],
+      }]
+*/
 
   },
 /*
@@ -119,9 +164,10 @@ Page({
   onLoad: function () {
     console.log('onLoad')
     var that = this
+    //console.log(that.data)
     //初始化的时候渲染wxSearchdata
     WxSearch.init(that,43,['一点点','杨国福','牛大学','炉火鱼香','泰莱']);
-    //WxSearch.initMindKeys(['weappdev.com','微信小程序开发','微信开发','微信小程序']);
+    WxSearch.initMindKeys(['weappdev.com','微信小程序开发','微信开发','微信小程序']);
 
     wx.request({
       url: 'http://api.leo-lee.cn/api/restaurants',
@@ -129,16 +175,16 @@ Page({
       success: function (res) {
         // 查询成功
         if (res.statusCode === 200) {
-          console.log(res.data)
+          //console.log(res.data)
           that.setData({
-            restaurants: res.data
+            restaurants: res.data.restaurants
           });//和页面进行绑定可以动态的渲染到页面
 
         }
 
       },
       fail: function (res) {
-        console.log(res)
+        //console.log(res)
       }
     });
   },
@@ -181,6 +227,7 @@ Page({
     
     let text = that.data.wxSearchData.value;
     //let text = parseInt(that.data.wxSearchData.value);
+  
     wx.request({
       //url: 'http://api.leo-lee.cn/api/restaurants/'+text,
       url: 'http://api.leo-lee.cn/api/restaurants/query?name='+text,
@@ -188,9 +235,9 @@ Page({
       success: function(res) {
         // 查询成功
         if (res.statusCode === 200) {
-          //console.log(res.data)
+          console.log(res.data)
           that.setData({
-            restaurants: res.data
+            restaurants: res.data.restaurants
           });//和页面进行绑定可以动态的渲染到页面
           //console.log(res.data)
         }
@@ -232,6 +279,9 @@ Page({
     WxSearch.wxSearchHiddenPancel(that);
   },
   selectRestaurant: function(e) {
+    var restaurant_id = e.currentTarget.dataset;
+    console.log(restaurant_id)
+    wx.setStorageSync("restaurant_id", restaurant_id)
     wx.navigateTo ({
       url: '../order-food/order-food',
     })

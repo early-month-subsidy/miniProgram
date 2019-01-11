@@ -197,6 +197,7 @@ Page({
 */
 
 Page({
+
   data: {
     goods: [
       {
@@ -477,7 +478,25 @@ Page({
     this.setData({
       payDesc: this.payDesc()
     });
+    var restaurant_id = (wx.getStorageSync('restaurant_id') || []).res_id
+    console.log(restaurant_id)
+    wx.request({
+      url: 'http://api.leo-lee.cn/api/restaurants/' + restaurant_id,
+      method: 'GET',
+      success: function (res) {
+        // 查询成功
+        if (res.statusCode === 200) {
+          console.log(res.data)
+
+        }
+
+      },
+      fail: function (res) {
+        console.log(res)
+      }
+    });
   },
+  /*
   pay: function(msg) {
     msg = this.payDesc()
     wx.switchTab({
@@ -487,6 +506,7 @@ Page({
       complete: function(res) {},
     })
   },
+  */
   onReady: function () {
     // 页面渲染完成
   },

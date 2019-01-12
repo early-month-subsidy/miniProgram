@@ -179,7 +179,6 @@ Page({
           that.setData({
             restaurants: res.data.restaurants
           });//和页面进行绑定可以动态的渲染到页面
-
         }
 
       },
@@ -283,7 +282,10 @@ Page({
     console.log(restaurant_id)
     wx.setStorageSync("restaurant_id", restaurant_id)
     wx.navigateTo ({
-      url: '../order-food/order-food',
+      // 未添加详情和座位页码的
+      //url: '../order-food/order-food',
+      // 添加详情页和座位页码
+      url: '../restaurants/restaurants',
     })
   }
 })

@@ -197,8 +197,10 @@ Page({
 */
 
 Page({
-
+  img_url: "",
   data: {
+    goods:[],
+    /*
     goods: [
       {
         "name": "找口感",
@@ -290,6 +292,7 @@ Page({
         ]
       },
     ],
+    */
     toView: '0',
     scrollTop: 100,
     foodCounts: 0,
@@ -299,7 +302,7 @@ Page({
     minPrice: 10,//起送價格
     payDesc: '',
     fold: true,
-    selectFoods: [{ price: 20, count: 2 }],
+    selectFoods: [{ price: 20, likes: 2 }],
     cartShow: 'none',
     status: 0,
     url: "",
@@ -316,17 +319,20 @@ Page({
   decreaseCart: function (e) {
     var index = e.currentTarget.dataset.itemIndex;
     var parentIndex = e.currentTarget.dataset.parentindex;
-    this.data.goods[parentIndex].foods[index].Count--
+    this.data.goods[parentIndex].foods[index].likes--;
     var name = this.data.goods[parentIndex].foods[index].name;
-    var num = this.data.goods[parentIndex].foods[index].Count;
+    var num = this.data.goods[parentIndex].foods[index].likes;
     var mark = 'a' + index + 'b' + parentIndex
+    console.log(item => item.mark)
     var price = this.data.goods[parentIndex].foods[index].price;
     //var obj = { price: price, num: num, mark: mark, name: name, index: index, parentIndex: parentIndex };
-    var img = this.data.goods[parentIndex].foods[index].icon;
-    var obj = { price: price, num: num, name: name, img: img};
-    var carArray1 = this.data.carArray.filter(item => item.mark != mark);
+    var img = this.data.goods[parentIndex].foods[index].image;
+    var obj = { price: price, num: num, name: name, img: img, index: index, parentIndex: parentIndex };
+    console.log(obj)
+    var carArray1 = this.data.carArray.filter(item => item.name != name);
     carArray1.push(obj);
-    // console.log(carArray1);
+    console.log(obj);
+    console.log(carArray1);
     for (var m = 0; m < carArray1.length; m++) {
       if (carArray1[m].num == 0) {
         carArray1.splice(m, 1);  // splice(a,b); a需要删除的位置,b删除几个
@@ -364,17 +370,18 @@ Page({
   addCart(e) {
     var index = e.currentTarget.dataset.itemIndex;
     var parentIndex = e.currentTarget.dataset.parentindex;
-    this.data.goods[parentIndex].foods[index].Count++;
+    this.data.goods[parentIndex].foods[index].likes++;
     var mark = 'a' + index + 'b' + parentIndex
+    //console.log(item => item.name)
     var price = this.data.goods[parentIndex].foods[index].price;
-    var num = this.data.goods[parentIndex].foods[index].Count;
+    var num = this.data.goods[parentIndex].foods[index].likes;
     var name = this.data.goods[parentIndex].foods[index].name;
     //var obj = { price: price, num: num, mark: mark, name: name, index: index, parentIndex: parentIndex };
-    var img = this.data.goods[parentIndex].foods[index].icon;
-    var obj = { price: price, num: num,name: name,img: img};
-    var carArray1 = this.data.carArray.filter(item => item.mark != mark)
+    var img = this.data.goods[parentIndex].foods[index].image;
+    var obj = { price: price, num: num, name: name, img: img, index: index, parentIndex: parentIndex };
+    var carArray1 = this.data.carArray.filter(item => item.name != name)
     carArray1.push(obj)
-    console.log(carArray1);
+    //console.log(carArray1);
     this.setData({
       carArray: carArray1,
       goods: this.data.goods
@@ -385,6 +392,7 @@ Page({
     })
   },
   addShopCart: function (e) {
+    console.log(e.currentTarget.dataset);
     this.addCart(e);
   },
   //计算总价
@@ -474,27 +482,31 @@ Page({
     });
   },
   onLoad: function (options) {
+    let that = this;
     // 页面初始化 options为页面跳转所带来的参数
     this.setData({
       payDesc: this.payDesc()
     });
-    var restaurant_id = (wx.getStorageSync('restaurant_id') || []).res_id
-    console.log(restaurant_id)
+    var boards = (wx.getStorageSync('boards') || []).boards
+    console.log("oreder-food") 
     wx.request({
-      url: 'http://api.leo-lee.cn/api/restaurants/' + restaurant_id,
+      url: 'http://api.leo-lee.cn/api/restaurants/' + boards.restaurant_id,
       method: 'GET',
       success: function (res) {
         // 查询成功
         if (res.statusCode === 200) {
           console.log(res.data)
-
+          that.setData({
+            img_url: res.data.restaurant.images[1].image_url,
+            goods: res.data.restaurant.categories
+          })
         }
-
       },
       fail: function (res) {
         console.log(res)
       }
     });
+
   },
   /*
   pay: function(msg) {
@@ -519,5 +531,6 @@ Page({
   },
   onUnload: function () {
     // 页面关闭
-  }
+  },
+  empty: function(e) {}
 })

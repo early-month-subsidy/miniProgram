@@ -1,0 +1,21 @@
+<view class='container'>
+  <view class="item" wx:for="{{restaurant}}" wx:for-item="restaurant" wx:key="restaurant">
+    <view class='resimg' wx:for="{{restaurant.images}}" wx:for-item="images" wx:key="images" mode='aspectFill'>
+      <image class="{{images.order_id === 0 ? 'img_show' : 'img_hide'}}" src="{{images.image_url}}"/>
+    </view>
+    <view class='introduce'>
+      <text class='name'>{{restaurant.name}}</text>
+      <text class='introduction'>介绍： {{restaurant.introduction}}</text>
+      <text class='opening_time'>营业时间： {{restaurant.opening_time}}</text>
+      <text class='address'>地点： {{restaurant.address}}</text>
+    </view>
+  </view>
+  <view class="seat" wx:for="{{restaurant}}" wx:for-item="restaurant" wx:key="restaurant">
+    <view class='seat_mes' wx:for="{{restaurant.boards}}" wx:for-item="boards" wx:key="boards">
+      <view class="{{boards.occupation === false ? 'seat_empty' : 'seat_full'}}" bindtap='select_seat' data-boards='{{boards}}'>
+        <text>餐桌号： {{boards.name}}</text>
+        <text>座位数： {{boards.seat_num}}</text>
+      </view>
+    </view>
+  </view>
+</view>

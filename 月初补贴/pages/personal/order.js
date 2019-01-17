@@ -17,7 +17,7 @@ Page({
     restaurant_name:'',
     total_cost:"",
     items_details:"",
-    dot:''
+        dot:''
   },
   loginandup:function(e) {
     console.log('userInfo is', this.data.userInfo);
@@ -42,6 +42,11 @@ Page({
             that.setData({
               user_info:res.data
             })
+            
+            wx.setStorage({
+              key:'userInfo',
+              data:res.data,
+            })
           }
         })
       }
@@ -49,6 +54,9 @@ Page({
   },
   getHistoryOrder:function(e) {
     console.log("user_info is ", this.data.user_info)
+    if (this.data.user_info == NULL) {
+      
+    }
     var that = this;
     wx.request({
       url: 'https://api.leo-lee.cn/api/orders',
@@ -58,15 +66,8 @@ Page({
       },
       success:function(res) {
         console.log(res.data);
-        var temp = res.data.orders;
-        console.log("temp is", temp);
-        temp.push(temp[0]);
-        console.log("tempp is", temp);
-        temp.push(temp[0]);
-        console.log("temppp is", temp);
         that.setData({
-          // historyOrder:res.data.orders,
-          historyOrder:temp,
+          historyOrder:res.data.orders,
           order_created_time:"订单创建时间：",
           restaurant_name:"店铺名称: ",
           total_cost:"花费总计：",

@@ -5,90 +5,41 @@ const app = getApp()
 Page({
   data: {
     // 统计商品数量和价格
-    orderCount: {
-      count: 0,
-      money: 0
-    },
-    bottomFlag: false,
+    orderCount: 1,
     // 提交的订单
-    orders: true,
-    items: []
+    //orders: true,
+    submit_order: []
   },
-  /*
-  // 点击对应菜单添加按钮
-  del: function (event) {
-    let that = this;
-    let id = event.target.dataset.id;
-    let index = event.target.dataset.index;
-    let param = this.data.items[index];
-    if(param.num > 0){
-      param.num--; // 每点一次减少1
-    } else {
-      param.num = 0; // 最低为0
-    }
-    // 改变添加按钮的状态
-    this.data.items.splice(index, 1, param);
-    that.setData({
-      items: this.data.items
-    });
-    let money = 0;
-    let num = 0;
-    // 将已经确定总价格和数量求和
-    this.data.items.forEach(item => {
-      money += item.price * item.num;
-      num += item.num;
-    });
-    let orderCount = {
-      num,
-      money
-    }
-    // 设置显示对应的总数和全部价钱
-    this.setData({
-      orderCount
-    });
-  },
-  // 点击对应菜单添加按钮
-  add: function(event) {
-    let that = this;
-    let id = event.target.dataset.id;
-    let index = event.target.dataset.index;
-    let param = this.data.items[index];
-    let subOrders = []; // 购物单列表存储数据
-    param.num++; // 每点一次增加1
-    // 改变添加按钮的状态
-    console.log(param);
-    this.data.items.splice(index, 1, param);
-    that.setData({
-      items: this.data.items
-    });
-    let money = 0;
-    let num = 0;
-    // 将已经确定总价格和数量求和
-    this.data.items.forEach(item => {
-      money += item.price*item.num;
-      num += item.num; 
-    });
-    let orderCount = {
-      num,
-      money
-    }
-    // 设置显示对应的总数和全部价钱
-    this.setData({
-      orderCount
-    });
-  },
-  */
   // 点击结账按钮
   pay: function() {
     let that = this;
-    let str = '选中' + that.data.orderCount.count + '件商品，共' + that.data.orderCount.money + '元，是否要支付？'
+    let str = '选中' + that.data.orderCount + '件商品，是否要支付？'
     wx.showModal({
       title: '提示',
       content: str,
       success: function (res) {
         // 至少选中一个商品才能支付
-        if (that.data.orderCount.count !== 0){
+        if (that.data.orderCount !== 0){
           if (res.confirm) {
+            // 取出订单传过来的数据
+            var access_token = (wx.getStorageSync('access_token') || []);
+            var orders_id = (wx.getStorageSync('orders_id') || []);
+            wx.request({
+              url: 'https://api.leo-lee.cn/api/orders/' + orders_id,
+              method: 'PUT',
+              header: {
+                'Authorization': 'Bearer ' + access_token
+              },
+              success: function (res) {
+                wx.navigateTo({
+                  url: '../pay/pay',
+                })
+              },
+              fail: function (res) {
+                console.log(res)
+              },
+            })
+            /*
             // 打开扫码功能
             wx.scanCode({
               onlyFromCamera: true,
@@ -98,6 +49,7 @@ Page({
                 });
               }
             });
+            */
           } else if (res.cancel) {
             console.log('用户点击取消')
           }
@@ -112,54 +64,38 @@ Page({
     })
   },
   onLoad: function() {
+    console.log("等待付款")
     let that = this;
+    var orders_submit = [];
     // 取出订单传过来的数据
-    var order_temp = (wx.getStorageSync('order_temp') || [])
-    console.log(order_temp.length)
-    let items = order_temp
-    let money = 0;
-    let count = order_temp.length;
-    // 价格统计汇总
-    order_temp.forEach(item => {
-      money += (item.price * item.num);// 总价格求和
-    })
-    let orderCount = {
-      count,
-      money
-    }
-    that.setData({
-      orderCount: orderCount
-    })
-    that.setData({
-      items: order_temp,
-    })
-    console.log(items)
-
-
-
-/*
-    wx.getStorage({
-      key: 'orders',
-      success: function (res) {
+    var access_token = (wx.getStorageSync('access_token') || []);
+    var orders_id = (wx.getStorageSync('orders_id') || []);
+    wx.request({
+      url: 'https://api.leo-lee.cn/api/orders/' + orders_id,
+      method: 'GET',
+      header: {
+        'Authorization': 'Bearer ' + access_token
+      },
+      success: function(res) {
         that.setData({
-          items: res.data
-        });
+          submit_order: res.data
+        })
+        orders_submit = res.data.order.items
+        console.log(res.data.order.items)
         // 价格统计汇总
-        let money = 0;
-        let num = res.data.length;
-        res.data.forEach(item => {
-          money += (item.price*item.num); // 总价格求和
-        });
-        let orderCount = {
-          num,
-          money
-        }
-        // 设置显示对应的总数和全部价钱
+        console.log("价格统计汇总")
+        let orderCount = 0;
+        orders_submit.forEach(item => {
+          console.log(item.quantity)
+          orderCount += item.quantity;// 总商品数量求和
+        })
         that.setData({
-          orderCount
-        });
-      }
+          orderCount: orderCount
+        })
+      },
+      fail: function(res) {
+        console.log(res) 
+      },     
     })
-*/
   }
 })

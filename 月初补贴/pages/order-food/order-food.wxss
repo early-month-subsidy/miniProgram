@@ -13,7 +13,6 @@
 }
 .goods {
   display: flex;
-
   width: 100%;
   top: 0;
   bottom: 46px;
@@ -631,6 +630,7 @@
 
 }
 
+
 /* 字体图标 */
 @font-face {
   font-family: 'iconfont';
@@ -703,4 +703,9 @@
 .popup-example--bottom .zan-popup__container {
   left: 0;
   right: 0;
+}
+.hover {
+  background-color: rgb(243, 157, 157);
+  scale: 0.5, 0.5;
+  border-radius: 50%;
 }

@@ -2,13 +2,14 @@
 <view class="container">
   <view class="item-content">
     <view class="box">
-      <view class="item" wx:for="{{items}}" wx:key="{{item.id}}">
+      <view class="item" wx:for="{{submit_order.order.items}}" wx:key="{{item.id}}">
+      <!--
         <image src="{{item.img}}"></image>
-        <text class="title">{{item.name}}</text>
-        <text class="price">￥ {{item.price}} 元</text>
+        <text class="price">￥ {{item.price}} 元</text>-->
+        <text class="title">{{item.food.name}}</text>
         <view class="opera">
           <!--<text class="btn" bindtap="add" data-id="{{item.id}}" data-index="{{index}}">+</text>-->
-          <text class="num">x {{item.num}}</text>
+          <text class="num">x {{item.quantity}}</text>
           <!--<text class="btn" bindtap="del" data-id="{{item.id}}" data-index="{{index}}">-</text>-->
         </view>
       </view>
@@ -16,8 +17,8 @@
   </view>
   <view class="bottom-bar">
     <view class="count">
-        共 <text class="num">{{orderCount.count}}</text>件       
-        合计 <text class="num">{{orderCount.money}}</text>元
+        共 <text class="num">{{orderCount}}</text>件       
+        合计 <text class="num">{{submit_order.order.total_cost}}</text>元
     </view>
     <view class="btn">
         <text bindtap='pay'>结账</text>

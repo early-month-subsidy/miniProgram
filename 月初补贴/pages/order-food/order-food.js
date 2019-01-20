@@ -1,445 +1,338 @@
-//index.js
-//获取应用实例
-//const app = getApp()
-/*
-Page({
-  data: {
-    tabIndex: 0,
-    // 统计商品数量和价格
-    orderCount: {
-      num: 0,
-      money: 0
-    },
-    bottomFlag: false,
-    // 提交的订单
-    orders: true,
-    menus: [{
-      id: 1,
-      menu: '菜单一'
-    }, {
-      id: 1,
-      menu: '菜单一'
-    }, {
-      id: 1,
-      menu: '菜单一'
-    }, {
-      id: 1,
-      menu: '菜单二'
-    }, {
-      id: 1,
-      menu: '菜单三'
-    }, {
-      id: 1,
-      menu: '菜单四'
-    }, {
-      id: 1,
-      menu: '菜单五'
-    }, {
-      id: 1,
-      menu: '菜单五'
-    }, {
-      id: 1,
-      menu: '菜单五'
-    }, {
-      id: 1,
-      menu: '菜单五'
-    }, {
-      id: 1,
-      menu: '菜单五'
-    }, {
-      id: 1,
-      menu: '菜单五'
-    }, {
-      id: 1,
-      menu: '菜单五'
-    }, {
-      id: 1,
-      menu: '菜单五'
-    }, {
-      id: 1,
-      menu: '菜单五'
-    }, {
-      id: 1,
-      menu: '菜单五'
-    }],
-    // 商品列表
-    items: [{
-      id: 1,
-      title: '湖南辣椒小炒肉1',
-      price: 12,
-      active: false,
-      num: 1
-    }, {
-      id: 2,
-      title: '湖南辣椒小炒肉2',
-      price: 13,
-      active: false,
-      num: 1
-    }, {
-      id: 3,
-      title: '湖南辣椒小炒肉3',
-      price: 14,
-      active: false,
-      num: 1
-    }, {
-      id: 4,
-      title: '湖南辣椒小炒肉4',
-      price: 15,
-      active: false,
-      num: 1
-    }, {
-      id: 5,
-      title: '湖南辣椒小炒肉5',
-      price: 16,
-      active: false,
-      num: 1
-    }, {
-      id: 6,
-      title: '湖南辣椒小炒肉5',
-      price: 17,
-      active: false,
-      num: 1
-    }, {
-      id: 7,
-      title: '湖南辣椒小炒肉5',
-      price: 18,
-      active: false,
-      num: 1
-    }]
-  },
-  // 下拉刷新
-  onPullDownRefresh: function () {
-    setTimeout(() => {
-      wx.showToast({
-        title: '成功加载数据',
-        icon: 'success',
-        duration: 500
-      });
-      wx.stopPullDownRefresh()
-    }, 500);
-  },
-  tabMenu: function (event) {
-    let index = event.target.dataset.index;
-    this.setData({
-      tabIndex: index
-    });
-  },
-  // 点击去购物车结账
-  card: function () {
-    let that = this;
-    // 判断是否有选中商品
-    if (that.data.orderCount.num !== 0) {
-      // 跳转到购物车订单也
-      console.log("begin")
-      wx.switchTab({
-        url: '../submit-order/submit-order',
-      })
-      console.log("end")
-    } else {
-      wx.showToast({
-        title: '您未选中任何商品',
-        icon: 'none',
-        duration: 2000
-      })
-    }
-  },
-  addOrder: function (event) {
-    let that = this;
-    let id = event.target.dataset.id;
-    let index = event.target.dataset.index;
-    let param = this.data.items[index];
-    let subOrders = []; // 购物单列表存储数据
-    param.active ? param.active = false : param.active = true;
-    // 改变添加按钮的状态
-    this.data.items.splice(index, 1, param);
-    that.setData({
-      items: this.data.items
-    });
-    // 将已经确定的菜单添加到购物单列表
-    this.data.items.forEach(item => {
-      if (item.active) {
-        subOrders.push(item);
-      }
-    });
-    // 判断底部提交菜单显示隐藏
-    if (subOrders.length == 0) {
-      that.setData({
-        bottomFlag: false
-      });
-    } else {
-      that.setData({
-        bottomFlag: true
-      });
-    }
-    let money = 0;
-    let num = subOrders.length;
-    subOrders.forEach(item => {
-      money += item.price; // 总价格求和
-    });
-    let orderCount = {
-      num,
-      money
-    }
-    // 设置显示对应的总数和全部价钱
-    this.setData({
-      orderCount
-    });
-    // 将选中的商品存储在本地
-    wx.setStorage({
-      key: "orders",
-      data: subOrders
-    });
-  },
-  onLoad: function () {
-
-  }
-})
-*/
+//order.js
 
 Page({
-  img_url: "",
   data: {
     goods:[],
-    /*
-    goods: [
-      {
-        "name": "找口感",
-        "type": 1,
-        "foods": [
-          {
-            "name": "波霸绿",
-            "price": 10,
-            "brand": "找口感",
-            "Count": 0,
-            "type": "热饮/冷饮",
-            "icon": "http://www.yidiandiantea.com/uploads/allimg/180228/1-1P22Q3412M41.jpg",
-          },
-          {
-            "name": "珍珠奶茶",
-            "price": 10,
-            "brand": "找口感",
-            "Count": 0,
-            "type": "热饮/冷饮",
-            "icon": "http://www.yidiandiantea.com/uploads/150724/1-150H41I22RO-lp.jpg",
-          },
-          {
-            "name": "燕麦奶茶",
-            "price": 10,
-            "brand": "找口感",
-            "Count": 0,
-            "type": "热饮",
-            "icon": "http://www.yidiandiantea.com/uploads/allimg/180228/1-1P22Q3401O19.jpg",
-          },
-        ]
-      },
-      {
-        "name": "找好茶",
-        "type": 2,
-        "foods": [
-          {
-            "name": "四季春茶",
-            "price": 12,
-            "brand": "找好茶",
-            "Count": 0,
-            "type": "热饮",
-            "icon": "http://www.yidiandiantea.com/uploads/allimg/170401/2-1F4011HQ0936-lp.jpg",
-          }
-        ]
-      },
-      {
-        "name": "找奶茶",
-        "type": 3,
-        "foods": [
-          {
-            "name": "乌龙奶茶",
-            "price": 10,
-            "brand": "找奶茶",
-            "Count": 0,
-            "type": "热饮/冷饮",
-            "icon": "http://www.yidiandiantea.com/uploads/allimg/180228/1-1P22Q34350Z6.jpg",
-          },
-          {
-            "name": "红茶玛奇朵",
-            "price": 12,
-            "brand": "找奶茶",
-            "Count": 0,
-            "type": "热饮",
-            "icon": "http://www.yidiandiantea.com/uploads/allimg/170401/2-1F4011HQ0936-lp.jpg",
-          },
-          {
-            "name": "古早味奶茶",
-            "price": 12,
-            "brand": "找奶茶",
-            "Count": 0,
-            "type": "冷饮/热饮",
-            "icon": "http://www.yidiandiantea.com/uploads/allimg/160616/1-160616142121U4-lp.jpg",
-          }
-        ]
-      },
-      {
-        "name": "找新鲜",
-        "type": 4,
-        "foods": [
-          {
-            "name": "葡萄柚绿茶",
-            "price": 12,
-            "brand": "找新鲜",
-            "Count": 0,
-            "type": "冷饮",
-            "icon": "http://www.yidiandiantea.com/uploads/allimg/160616/1-160616142121U4-lp.jpg",
-          },
-          
-        ]
-      },
-    ],
-    */
-    toView: '0',
+    boardID: 0,
+    img_url: "",
+    orders_submit:[],
+    toView: '', // 设置为空值，设置为数字或者'#'会报错‘id属性不能以数字开头’
     scrollTop: 100,
-    foodCounts: 0,
-    totalPrice: 0,// 总价格
-    totalCount: 0, // 总商品数
-    carArray: [],
-    minPrice: 10,//起送價格
-    payDesc: '',
     fold: true,
-    selectFoods: [{ price: 20, likes: 2 }],
+    selectFoods: [],
     cartShow: 'none',
     status: 0,
     url: "",
     showPopup: false,
+    restaurant_id: 0,
   },
+  onLoad: function (options) {
+    let that = this;
+    // 页面初始化 options为页面跳转所带来的参数
+    var boards = (wx.getStorageSync('boards') || []).boards
+    console.log("order-food")
+    wx.request({
+      url: 'https://api.leo-lee.cn/api/restaurants/' + boards.restaurant_id,
+      method: 'GET',
+      success: function (res) {
+        // 查询成功
+        if (res.statusCode === 200) {
+          console.log(res.data)
+          that.setData({
+            img_url: res.data.restaurant.images[1].image_url,
+            goods: res.data.restaurant.categories,
+            boardID: boards.id,
+            restaurant_id: res.data.restaurant.id,
+          })
+        }
+      },
+      fail: function (res) {
+        console.log(res)
+      }
+    });
+  },
+  // 添加到购物车
+  addShopCart: function (e) {
+    
+    let that = this;
+    var order_item_id = e.currentTarget.dataset.item.id;
+    
+    var board_id = that.data.boardID;
+    var access_token = (wx.getStorageSync('access_token') || [])
+
+    console.log("购物车中添加");
+    wx.request({
+      url: 'https://api.leo-lee.cn/api/order_items/' + order_item_id,
+      method: 'PUT',
+      header: {
+        'Authorization': 'Bearer ' + access_token
+      },
+      data: {
+        "action": "increment"
+      },
+      success: function (res) {
+        // 查询成功
+        //console.log(res)
+        if (res.statusCode === 200) {
+          wx.request({
+            url: 'https://api.leo-lee.cn/api/boards/' + board_id + '/order_items',
+            method: 'GET',
+            header: {
+              'Authorization': 'Bearer ' + access_token
+            },
+            success: function (res1) {
+              console.log("更新购物车")
+              console.log(res1)
+              that.setData({
+                orders_submit: res1.data.order_items
+              })
+            }
+          })
+          for (var i in that.data.goods) {
+            for (var j in that.data.goods[i].foods) {
+              if (that.data.goods[i].foods[j].id === e.currentTarget.dataset.item.food.id) {
+                that.data.goods[i].foods[j].likes = res.data.order_item.quantity
+              }
+            }
+          }
+        }
+      },
+      fail: function (res) {
+        console.log(res)
+      }
+    })
+  },
+  //添加到购物车
+  addCart(e) {
+    //console.log(e.currentTarget.dataset);
+    console.log("添加到购物车")
+    let that = this;
+    var index = e.currentTarget.dataset.itemIndex;
+    var parentIndex = e.currentTarget.dataset.parentindex;
+    this.data.goods[parentIndex].foods[index].likes++;
+    var data_item = {
+      "quantity": this.data.goods[parentIndex].foods[index].likes,
+      "food_id": this.data.goods[parentIndex].foods[index].id
+    }
+    var board_id = that.data.boardID;
+    var access_token = (wx.getStorageSync('access_token') || [])
+
+    wx.request({
+      url: 'https://api.leo-lee.cn/api/boards/' + board_id + '/order_items',
+      method: 'POST',
+      header: {
+        'Authorization': 'Bearer ' + access_token
+      },
+      data: data_item,
+      success: function (res) {
+        // 查询成功
+        //console.log(res)
+        if (res.statusCode === 200) {
+          wx.request({
+            url: 'https://api.leo-lee.cn/api/boards/' + board_id + '/order_items',
+            method: 'GET',
+            header: {
+              'Authorization': 'Bearer ' + access_token
+            },
+            success: function (res1) {
+              console.log("更新购物车")
+              //console.log(res1)
+              that.setData({
+                orders_submit: res1.data.order_items
+              })
+            }
+          })
+        }
+      },
+      fail: function (res) {
+        console.log(res)
+      }
+    })
+  },
+  //移除商品
+  decreaseCart: function (e) {
+    console.log("从购物车中删除")
+    let that = this;
+    var index = e.currentTarget.dataset.itemIndex;
+    var parentIndex = e.currentTarget.dataset.parentindex;
+    this.data.goods[parentIndex].foods[index].likes--;
+    var order_item_id = 0;
+    console.log(this.data.orders_submit[i].food.id)
+    console.log(this.data.goods[parentIndex].foods[index].id)
+    for (var i in this.data.orders_submit) {
+      console.log(this.data.orders_submit[i].food.id)
+      if (this.data.orders_submit[i].food.id === this.data.goods[parentIndex].foods[index].id) {
+        order_item_id = this.data.orders_submit[i].id
+        break;
+      }
+    }
+    if (order_item_id === 0) {
+      return;
+    }
+    var board_id = that.data.boardID;
+    var access_token = (wx.getStorageSync('access_token') || [])
+    wx.request({
+      url: 'https://api.leo-lee.cn/api/order_items/' + order_item_id,
+      method: 'PUT',
+      header: {
+        'Authorization': 'Bearer ' + access_token
+      },
+      data: {
+        "action": "decrement"
+      },
+      success: function (res) {
+        // 查询成功
+        //console.log(res)
+        if (res.statusCode === 200) {
+          wx.request({
+            url: 'https://api.leo-lee.cn/api/boards/' + board_id + '/order_items',
+            method: 'GET',
+            header: {
+              'Authorization': 'Bearer ' + access_token
+            },
+            success: function (res1) {
+              console.log("更新购物车")
+              //console.log(res1)
+              that.setData({
+                orders_submit: res1.data.order_items
+              })
+            }
+
+          })
+        }
+      },
+      fail: function (res) {
+        console.log(res)
+      }
+    })
+  },
+  decreaseShopCart: function (e) {
+    console.log(e.currentTarget.dataset);
+    let that = this;
+    var order_item_id = e.currentTarget.dataset.item.id;
+    var board_id = that.data.boardID;
+    var access_token = (wx.getStorageSync('access_token') || [])
+
+    console.log("购物车中删除");
+    wx.request({
+      url: 'https://api.leo-lee.cn/api/order_items/' + order_item_id,
+      method: 'PUT',
+      header: {
+        'Authorization': 'Bearer ' + access_token
+      },
+      data: {
+        "action": "decrement"
+      },
+      success: function (res) {
+        // 查询成功
+        //console.log(res)
+        if (res.statusCode === 200) {
+          wx.request({
+            url: 'https://api.leo-lee.cn/api/boards/' + board_id + '/order_items',
+            method: 'GET',
+            header: {
+              'Authorization': 'Bearer ' + access_token
+            },
+            success: function (res1) {
+              console.log("更新删除后的购物车")
+              //console.log(res1)
+              that.setData({
+                orders_submit: res1.data.order_items
+              })
+            }
+
+          })
+          for (var i in that.data.goods) {
+            for (var j in that.data.goods[i].foods) {
+              if (that.data.goods[i].foods[j].id === e.currentTarget.dataset.item.food.id) {
+                that.data.goods[i].foods[j].likes = res.data.order_item.quantity
+              }
+            }
+          }
+        }
+      },
+      fail: function (res) {
+        console.log(res)
+      }
+    })
+  },
+
+
+  onReady: function () {
+    // 页面渲染完成
+  },
+  onShow: function () {
+    // 页面显示
+  },
+
+  onHide: function (e) {
+    // 页面隐藏
+  },
+  onUnload: function () {
+    // 页面关闭
+  },
+  empty: function (e) {},
+
   selectMenu: function (e) {
     var index = e.currentTarget.dataset.itemIndex;
     this.setData({
       toView: 'order' + index.toString()
     })
-    console.log(this.data.toView);
   },
-  //移除商品
-  decreaseCart: function (e) {
-    var index = e.currentTarget.dataset.itemIndex;
-    var parentIndex = e.currentTarget.dataset.parentindex;
-    this.data.goods[parentIndex].foods[index].likes--;
-    var name = this.data.goods[parentIndex].foods[index].name;
-    var num = this.data.goods[parentIndex].foods[index].likes;
-    var mark = 'a' + index + 'b' + parentIndex
-    console.log(item => item.mark)
-    var price = this.data.goods[parentIndex].foods[index].price;
-    //var obj = { price: price, num: num, mark: mark, name: name, index: index, parentIndex: parentIndex };
-    var img = this.data.goods[parentIndex].foods[index].image;
-    var obj = { price: price, num: num, name: name, img: img, index: index, parentIndex: parentIndex };
-    console.log(obj)
-    var carArray1 = this.data.carArray.filter(item => item.name != name);
-    carArray1.push(obj);
-    console.log(obj);
-    console.log(carArray1);
-    for (var m = 0; m < carArray1.length; m++) {
-      if (carArray1[m].num == 0) {
-        carArray1.splice(m, 1);  // splice(a,b); a需要删除的位置,b删除几个
-      }
-    }
-    this.setData({
-      carArray: carArray1,
-      goods: this.data.goods
-    })
-    this.calTotalPrice()
-    this.setData({
-      payDesc: this.payDesc(),
-    })
-    //关闭弹起
-    var count1 = 0
-    for (let i = 0; i < carArray1.length; i++) {
-      if (carArray1[i].num == 0) {
-        count1++;
-      }
-    }
-    //console.log(count1)
-    if (count1 == carArray1.length) {
-      if (num == 0) {
-        this.setData({
-          cartShow: 'none'
-        })
-      }
-    }
-  },
-  decreaseShopCart: function (e) {
-    console.log('1');
-    this.decreaseCart(e);
-  },
-  //添加到购物车
-  addCart(e) {
-    var index = e.currentTarget.dataset.itemIndex;
-    var parentIndex = e.currentTarget.dataset.parentindex;
-    this.data.goods[parentIndex].foods[index].likes++;
-    var mark = 'a' + index + 'b' + parentIndex
-    //console.log(item => item.name)
-    var price = this.data.goods[parentIndex].foods[index].price;
-    var num = this.data.goods[parentIndex].foods[index].likes;
-    var name = this.data.goods[parentIndex].foods[index].name;
-    //var obj = { price: price, num: num, mark: mark, name: name, index: index, parentIndex: parentIndex };
-    var img = this.data.goods[parentIndex].foods[index].image;
-    var obj = { price: price, num: num, name: name, img: img, index: index, parentIndex: parentIndex };
-    var carArray1 = this.data.carArray.filter(item => item.name != name)
-    carArray1.push(obj)
-    //console.log(carArray1);
-    this.setData({
-      carArray: carArray1,
-      goods: this.data.goods
-    })
-    this.calTotalPrice();
-    this.setData({
-      payDesc: this.payDesc()
-    })
-  },
-  addShopCart: function (e) {
-    console.log(e.currentTarget.dataset);
-    this.addCart(e);
-  },
-  //计算总价
-  calTotalPrice: function () {
-    var carArray = this.data.carArray;
-    var totalPrice = 0;
-    var totalCount = 0;
-    for (var i = 0; i < carArray.length; i++) {
-      totalPrice += carArray[i].price * carArray[i].num;
-      totalCount += carArray[i].num
-    }
-    this.setData({
-      totalPrice: totalPrice,
-      totalCount: totalCount,
-      //payDesc: this.payDesc()
-    });
-  },
-  //提交订单按钮更新
-  payDesc() {
-    /*
-    if (this.data.totalPrice === 0) {
-      return `￥${this.data.minPrice}元起送`;
-    } else if (this.data.totalPrice < this.data.minPrice) {
-      let diff = this.data.minPrice - this.data.totalPrice;
-      return '还差' + diff + '元起送';
-    } else {
-      return '去结算';
-    }
-    */
-    //return `共￥${this.data.totalPrice}元`;
-    return `提交订单`;
-  },
+  
   // pay, 提交订单
   pay: function() {
-    if (!this.data.totalCount) {
+    let that = this
+    if (!this.data.orders_submit) {
       return;
     }
+    var access_token = (wx.getStorageSync('access_token') || []);
+    var orderitemID = [];
+    console.log(this.data.orders_submit)
+    for (var i in this.data.orders_submit) {
+      if (this.data.orders_submit[i].quantity !==0) {
+        orderitemID.push(this.data.orders_submit[i].id)
+      }
+    }
+    console.log(orderitemID)
     // 提交订单数据
-    console.log(this.data.carArray);
-    wx.setStorageSync("order_temp", this.data.carArray)
-    wx.switchTab({
-      url: '../submit-order/submit-order',
+    wx.request({
+      url: 'https://api.leo-lee.cn/api/orders',
+      method: 'POST',
+      header: {
+        'Authorization': 'Bearer ' + access_token
+      },
+      data: {
+        "remark": "少盐少油",
+        "restaurant_id": this.data.restaurant_id,
+        "items": orderitemID
+      },
+      success: function (res) {
+        // 查询成功
+        //console.log(res)
+        var orders_id = res.data.order.id;
+        console.log(res);
+        if (res.statusCode === 200) {
+          wx.showModal({
+            title: '商家接单成功',
+            content: "已提交订单，是否需要买单？",
+            success: function (res1) {
+              if (res1.confirm) {
+                wx.setStorageSync("orders_id", orders_id)
+                wx.switchTab({
+                  url: '../submit-order/submit-order',
+                })
+              } else if (res1.cancel) {
+                console.log('用户点击取消')
+                wx.showToast({
+                  title: '你可以继续加菜',
+                  icon: 'none',
+                  duration: 2000
+                })
+              }
+            }
+          })
+
+        }
+      },
+      fail: function (res) {
+        console.log(res)
+      }
     })
   },
-  //购物车
+  //购物车图标点击事件
   toggleList: function () {
-    if (!this.data.totalCount) {
+    if (!this.data.orders_submit) {
       return;
     }
     this.setData({
@@ -480,57 +373,5 @@ Page({
     this.setData({
       status: showtype,
     });
-  },
-  onLoad: function (options) {
-    let that = this;
-    // 页面初始化 options为页面跳转所带来的参数
-    this.setData({
-      payDesc: this.payDesc()
-    });
-    var boards = (wx.getStorageSync('boards') || []).boards
-    console.log("oreder-food") 
-    wx.request({
-      url: 'http://api.leo-lee.cn/api/restaurants/' + boards.restaurant_id,
-      method: 'GET',
-      success: function (res) {
-        // 查询成功
-        if (res.statusCode === 200) {
-          console.log(res.data)
-          that.setData({
-            img_url: res.data.restaurant.images[1].image_url,
-            goods: res.data.restaurant.categories
-          })
-        }
-      },
-      fail: function (res) {
-        console.log(res)
-      }
-    });
-
-  },
-  /*
-  pay: function(msg) {
-    msg = this.payDesc()
-    wx.switchTab({
-      url: '/pages/submit-order/submit-order',
-      success: function(res) {},
-      fail: function(res) {},
-      complete: function(res) {},
-    })
-  },
-  */
-  onReady: function () {
-    // 页面渲染完成
-  },
-  onShow: function () {
-    // 页面显示
-  },
-
-  onHide: function () {
-    // 页面隐藏
-  },
-  onUnload: function () {
-    // 页面关闭
-  },
-  empty: function(e) {}
+  }
 })

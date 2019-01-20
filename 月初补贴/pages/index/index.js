@@ -279,7 +279,7 @@ Page({
   },
   selectRestaurant: function(e) {
     var restaurant_id = e.currentTarget.dataset;
-    console.log(restaurant_id)
+    console.log("餐厅的id为"+restaurant_id)
     wx.setStorageSync("restaurant_id", restaurant_id)
     wx.navigateTo ({
       // 未添加详情和座位页码的
